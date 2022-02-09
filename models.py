@@ -20,7 +20,8 @@ def squared_error(predictions, Y):
         sum squared loss (the L2 loss) using predictions for Y.
     '''
     # TODO
-    pass
+    res = (Y - predictions)**2
+    return np.sum(res)
 
 class LinearRegression:
     '''
@@ -59,7 +60,16 @@ class LinearRegression:
             None
         '''
         # TODO
-        pass
+        # T = np.matrix.transpose(X)
+        # mult = np.matmul(X,T)
+        # B = np.linalg.pinv(mult)
+        # sum2 = np.matmul(B,X)
+        T = np.matrix.transpose(X)
+        mult = np.matmul(T,X)
+        B = np.linalg.pinv(mult)
+        res1 = np.matmul(B,T)
+        self.weights = np.matmul(res1, Y)
+
 
     def predict(self, X):
         '''
@@ -71,7 +81,8 @@ class LinearRegression:
             A 1D Numpy array with one element for each row in X containing the predicted value.
         '''
         # TODO
-        pass
+        weights = self.weights
+        return np.matmul(X, weights)
 
     def loss(self, X, Y):
         '''
